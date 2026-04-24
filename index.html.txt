@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>CV ADMIN NEW DZ</title>
+
+<style>
+body {
+  background: black;
+  color: #00eaff;
+  font-family: Arial;
+  text-align: center;
+}
+
+.container {
+  margin-top: 100px;
+}
+
+input {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 250px;
+}
+
+button {
+  padding: 10px 20px;
+  background: #00eaff;
+  border: none;
+  cursor: pointer;
+}
+</style>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+</head>
+
+<body>
+
+<div class="container" id="login">
+  <h1>🔐 تسجيل</h1>
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="register()">تسجيل حساب</button>
+  <button onclick="login()">تسجيل دخول</button>
+</div>
+
+<div class="container" id="form" style="display:none;">
+  <h1>📋 CV ADMIN NEW DZ</h1>
+
+  <input placeholder="Your real name">
+  <input placeholder="Discord username">
+  <input placeholder="Age">
+
+  <button onclick="alert('تم الإرسال')">إرسال</button>
+</div>
+
+<script>
+// 🔴 حط بياناتك من Firebase هنا
+const firebaseConfig = {
+  apiKey: "PUT_YOUR_KEY",
+  authDomain: "PUT_YOUR_DOMAIN"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+function register() {
+  let email = document.getElementById('email').value;
+  let password = document.getElementById('password').value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+  .then(() => showForm())
+  .catch(e => alert(e.message));
+}
+
+function login() {
+  let email = document.getElementById('email').value;
+  let password = document.getElementById('password').value;
+
+  auth.signInWithEmailAndPassword(email, password)
+  .then(() => showForm())
+  .catch(e => alert(e.message));
+}
+
+function showForm() {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('form').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
